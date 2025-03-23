@@ -18,10 +18,12 @@ class _NewItemState extends State<NewItem> {
         padding: const EdgeInsets.all(12),
         child: Form(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
                 maxLength: 50,
                 decoration: const InputDecoration(label: Text('Name')),
+                keyboardType: TextInputType.name,
                 validator: (value) {
                   return null;
                 },
@@ -31,7 +33,6 @@ class _NewItemState extends State<NewItem> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      maxLength: 50,
                       decoration: const InputDecoration(
                         label: Text('Quantity'),
                       ),
@@ -44,7 +45,7 @@ class _NewItemState extends State<NewItem> {
                       items: [
                         for (final category in categories.entries)
                           DropdownMenuItem(
-                            value: category.key,
+                            value: category.value,
                             child: Row(
                               children: [
                                 Container(
