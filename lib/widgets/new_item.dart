@@ -66,6 +66,7 @@ class _NewItemState extends State<NewItem> {
                   ),
                 ],
               ),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
