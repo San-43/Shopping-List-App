@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/categories.dart';
+import '../models/category.dart';
 
 class NewItem extends StatefulWidget {
   const NewItem({super.key});
@@ -11,10 +12,13 @@ class NewItem extends StatefulWidget {
 
 class _NewItemState extends State<NewItem> {
   final _formKey = GlobalKey<FormState>();
+  var _enteredName = '';
+  var _enteredQuantity = 1;
+  var _selectedCategory = categories[Categories.vegetables]!;
 
   void _saveItem() {
     if (_formKey.currentState!.validate()) {
-      Navigator.of(context).pop();
+      _formKey.currentState!.save();
     }
   }
 
@@ -43,6 +47,9 @@ class _NewItemState extends State<NewItem> {
                     return null;
                   }
                 },
+                onSaved: (value) {
+                  _enteredName = value!;
+                }
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -64,11 +71,15 @@ class _NewItemState extends State<NewItem> {
                           return null;
                         }
                       },
+                      onSaved: (value) {
+                        _enteredQuantity = int.parse(value!);
+                      }
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: DropdownButtonFormField(
+                      value: _selectedCategory,
                       items: [
                         for (final category in categories.entries)
                           DropdownMenuItem(
@@ -86,7 +97,11 @@ class _NewItemState extends State<NewItem> {
                             ),
                           ),
                       ],
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedCategory = value!;
+                        });
+                      },
                     ),
                   ),
                 ],
