@@ -19,6 +19,12 @@ class _NewItemState extends State<NewItem> {
   void _saveItem() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      Navigator.of(context).pop({
+        'id': DateTime.now().toString(),
+        'name': _enteredName,
+        'quantity': _enteredQuantity,
+        'category': _selectedCategory,
+      });
     }
   }
 
@@ -49,7 +55,7 @@ class _NewItemState extends State<NewItem> {
                 },
                 onSaved: (value) {
                   _enteredName = value!;
-                }
+                },
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -73,7 +79,7 @@ class _NewItemState extends State<NewItem> {
                       },
                       onSaved: (value) {
                         _enteredQuantity = int.parse(value!);
-                      }
+                      },
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -110,9 +116,12 @@ class _NewItemState extends State<NewItem> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(onPressed: () {
-                    _formKey.currentState!.reset();
-                  }, child: const Text("Reset")),
+                  TextButton(
+                    onPressed: () {
+                      _formKey.currentState!.reset();
+                    },
+                    child: const Text("Reset"),
+                  ),
                   ElevatedButton(
                     onPressed: _saveItem,
                     child: const Text("Add item"),
