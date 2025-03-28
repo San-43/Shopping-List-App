@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 
 import '../data/categories.dart';
 import '../models/category.dart';
-import '../models/grocery_item.dart';
 
 class NewItem extends StatefulWidget {
   const NewItem({super.key});
